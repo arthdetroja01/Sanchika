@@ -62,6 +62,12 @@ button:hover {
     box-sizing: border-box;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.topic-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .topic-card h2 {
@@ -88,6 +94,65 @@ button:hover {
     text-decoration: underline;
 }
 
+/* Search Results Page */
+.search-results {
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.search-result-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-result-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-result-item a.subtopic-link {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.search-result-item a.subtopic-link:hover {
+    text-decoration: underline;
+}
+
+.search-result-item h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+}
+
+.search-result-item p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.search-result-item p strong {
+    font-weight: bold;
+    color: #34495e;
+}
+
+/* Highlight matched words */
+.highlight {
+    background-color: yellow;
+    color: black;
+}
+
+/* Footer Styles */
 footer {
     background-color: #34495e;
     color: white;
