@@ -1,42 +1,101 @@
-Every computer has a total of 65535 available ports.
+Port Scanning with Nmap
 
-When port scanning with Nmap, there are three basic scan types. These are:
+Every computer has a total of 65,535 available ports, and Nmap is a powerful tool used for port scanning and network discovery. Here's a breakdown of common scan types, how they work, and how you can use Nmap to perform these scans.
+Basic Scan Types
 
-    TCP Connect Scans (-sT)
-    SYN "Half-open" Scans (-sS)
-    UDP Scans (-sU)
+    TCP Connect Scan (-sT)
+        How It Works: This is the most basic TCP scan. The attacking machine initiates a full three-way TCP handshake (SYN, SYN-ACK, ACK) to the target machine.
+        Advantages: Simple and effective, as it doesn’t require special privileges.
+        Disadvantages: Can be logged by the target and is slower than SYN scans. The full handshake means detection is more likely.
 
-Additionally there are several less common port scan types, some of which we will also cover (albeit in less detail). These are:
+    Example Command:
+    nmap -sT <target>
 
-    TCP Null Scans (-sN)
-    TCP FIN Scans (-sF)
-    TCP Xmas Scans (-sX)
+    SYN Scan (-sS)
+        How It Works: This scan only sends a SYN packet to initiate the handshake. The target responds with a SYN-ACK if the port is open or RST if the port is closed. The scan doesn't complete the handshake, making it less detectable.
+        Advantages: Faster and stealthier compared to TCP Connect scans. It’s useful for evading firewalls and intrusion detection systems (IDS).
+        Disadvantages: Requires root or administrative privileges to craft raw packets.
 
-TCP Connect Scans (-sT)
+    Example Command:
+    nmap -sS <target>
 
-First the connecting terminal (our attacking machine, in this instance) sends a TCP request to the target server with the SYN flag set. The server then acknowledges this packet with a TCP response containing the SYN flag, as well as the ACK flag. Finally, our terminal completes the handshake by sending a TCP request with the ACK flag set.
-If Nmap sends a TCP request with the SYN flag set to a closed port, the target server will respond with a TCP packet with the RST (Reset) flag set. By this response, Nmap can establish that the port is closed.
+    UDP Scan (-sU)
+        How It Works: UDP is stateless, so Nmap just sends packets to ports and waits for responses. If no response is received, the port is assumed to be open|filtered. If an ICMP message is returned, the port is marked as closed.
+        Advantages: Useful for scanning non-TCP ports (e.g., DNS, SNMP).
+        Disadvantages: UDP scanning is slower due to its stateless nature and requires more checks to be accurate.
 
-Many firewalls are configured to simply drop incoming packets. Nmap sends a TCP SYN request, and receives nothing back. This indicates that the port is being protected by a firewall and thus the port is considered to be filtered.
+    Example Command:
+    nmap -sU <target>
 
-That said, it is very easy to configure a firewall to respond with a RST TCP packet. For example, in IPtables for Linux.
+Less Common Scan Types
 
-Command:
-iptables -I INPUT -p tcp --dport <port> -j REJECT --reject-with tcp-reset
+    NULL Scan (-sN)
+        How It Works: The request is sent with no flags set (i.e., a blank packet). A closed port should respond with an RST packet, but open ports remain silent.
+        Advantages: Can bypass some firewall rules, as the packet looks unusual.
+        Disadvantages: Can be flagged as suspicious by IDS systems.
 
-SYN Scans (-sS)
+    Example Command:
+    nmap -sN <target>
 
-SYN scans (-sS) are used to scan the TCP port-range of a target or targets; however, the two scan types work slightly differently. SYN scans are sometimes referred to as "Half-open" scans, or "Stealth" scans.
+    FIN Scan (-sF)
+        How It Works: This scan sends a packet with the FIN flag, which is typically used to terminate connections. A closed port should respond with an RST, while open ports should ignore the FIN flag.
+        Advantages: Can be used to evade detection in certain firewalls.
+        Disadvantages: Can trigger false positives on some systems.
 
-This has a variety of advantages for us as hackers:
+    Example Command:
+    nmap -sF <target>
 
-    It can be used to bypass older Intrusion Detection systems as they are looking out for a full three way handshake. This is often no longer the case with modern IDS solutions; it is for this reason that SYN scans are still frequently referred to as "stealth" scans.
-    SYN scans are often not logged by applications listening on open ports, as standard practice is to log a connection once it's been fully established. Again, this plays into the idea of SYN scans being stealthy.
-    Without having to bother about completing (and disconnecting from) a three-way handshake for every port, SYN scans are significantly faster than a standard TCP Connect scan.
+    XMAS Scan (-sX)
+        How It Works: Sends a packet with the FIN, URG, and PSH flags set (hence the "Xmas" name). A closed port responds with an RST, while an open port usually ignores it.
+        Advantages: Effective for evading some basic IDS.
+        Disadvantages: Similar to FIN and NULL scans, but more noticeable by advanced IDS systems.
 
-There are, however, a couple of disadvantages to SYN scans, namely:
+    Example Command:
+    nmap -sX <target>
 
-    They require sudo permissions[1] in order to work correctly in Linux. This is because SYN scans require the ability to create raw packets (as opposed to the full TCP handshake), which is a privilege only the root user has by default.
-    Unstable services are sometimes brought down by SYN scans, which could prove problematic if a client has provided a production environment for the test.
+Other Important Nmap Features
+ICMP Network Scanning
 
-UDP Scans (-sU)
+To map a network and discover live hosts, use Nmap's ICMP (ping) sweep. Nmap sends an ICMP echo request to each address in a specified range. Hosts that respond are considered alive.
+
+Example Command:
+nmap -sn <network_range>
+Nmap Scripting Engine (NSE)
+
+The Nmap Scripting Engine (NSE) allows users to extend Nmap's capabilities with custom scripts written in Lua. These scripts are categorized for specific purposes like vulnerability scanning, brute-forcing, or service discovery.
+
+    Categories of NSE Scripts:
+        safe: Scripts that don’t impact the target significantly.
+        intrusive: Scripts that may impact or disrupt the target.
+        vuln: Detect known vulnerabilities.
+        exploit: Automate exploits for vulnerabilities.
+        auth: Test authentication methods.
+        brute: Attempt brute-force attacks.
+        discovery: Discover services and network information.
+
+Example Command:
+nmap -p 80 --script http-put --script-args http-put.url='/dav/shell.php',http-put.file='./shell.php'
+Firewall Evasion Techniques
+
+Firewalls often block certain types of traffic (such as ICMP echo requests), which can affect your scan results. Here are some techniques to evade detection:
+
+    -Pn: Treat the target as alive, bypassing the ping sweep.
+    -f: Fragment packets into smaller sizes to evade detection by firewalls or IDS.
+    --mtu <size>: Set the maximum transmission unit (MTU) for packet sizes.
+    --scan-delay <time>: Introduce a delay between packets to avoid triggering rate-based IDS/IPS.
+    --badsum: Send packets with invalid checksums to test how firewalls/IDS react.
+
+Example Command:
+nmap -Pn -f --scan-delay 100ms <target>
+Summary of Key Nmap Commands
+
+    Basic TCP Scan: nmap -sT <target>
+    SYN Scan (Stealth): nmap -sS <target>
+    UDP Scan: nmap -sU <target>
+    NULL Scan: nmap -sN <target>
+    FIN Scan: nmap -sF <target>
+    XMAS Scan: nmap -sX <target>
+    ICMP Ping Sweep: nmap -sn <network_range>
+    NSE Example: nmap --script <script_name> <target>
+
+By using these scan types and features, Nmap provides a flexible and powerful toolkit for network reconnaissance, vulnerability assessment, and evading detection in hostile environments.

@@ -63,3 +63,10 @@ Process Monitor - Monitors and logs real-time process/thread activity.
 12. Process Analysis
 Procmon - A helpful tool for tracking system activity, especially regarding malware research, troubleshooting, and forensic investigations.
 Process Explorer - Allows you to see the Process of the Parent-child relationship, DLLs loaded, and its path.
+
+13. Bruteforce attacks
+Hydra - Passord attacks on various service like web, ssh etc
+
+14. Passive reconnaissance
+Whois - WHOIS server replies with various information related to the domain requested. 
+DNS_Lookup - QUery the DNS servers to find information related to servers

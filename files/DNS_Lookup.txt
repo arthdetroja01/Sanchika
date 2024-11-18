@@ -1,0 +1,70 @@
+nslookup
+
+nslookup is a utility to query DNS servers for information about a domain name.
+General Syntax
+
+nslookup [OPTIONS] DOMAIN_NAME [SERVER]
+
+    DOMAIN_NAME: The domain to query.
+    OPTIONS: Specifies the query type (e.g., A, AAAA, MX, CNAME, etc.).
+    SERVER: DNS server to query (e.g., 1.1.1.1, 8.8.8.8).
+
+Query Types
+Option	Purpose
+A	IPv4 addresses
+AAAA	IPv6 addresses
+CNAME	Canonical names
+MX	Mail exchange servers
+SOA	Start of Authority
+TXT	Text records
+Examples
+
+    Query IPv4 addresses:
+
+nslookup -type=A example.com
+
+Query Mail Exchange (MX) records:
+
+nslookup -type=MX example.com
+
+Use a specific DNS server:
+
+    nslookup -type=A example.com 1.1.1.1
+
+dig
+
+dig (Domain Information Groper) is a more advanced DNS query tool.
+General Syntax
+
+dig [@SERVER] DOMAIN_NAME [TYPE]
+
+    SERVER: DNS server to query (optional).
+    DOMAIN_NAME: The domain to query.
+    TYPE: Specifies the record type (e.g., A, MX, TXT, etc.).
+
+Query Types
+Type	Purpose
+A	IPv4 addresses
+AAAA	IPv6 addresses
+CNAME	Canonical names
+MX	Mail exchange servers
+SOA	Start of Authority
+TXT	Text records
+Examples
+
+    Query IPv4 addresses:
+
+dig example.com A
+
+Query MX records:
+
+dig example.com MX
+
+Use a specific DNS server:
+
+    dig @8.8.8.8 example.com A
+
+Key Points
+
+    nslookup is simple but limited in detail.
+    dig provides more information, such as TTL (Time To Live) by default.
