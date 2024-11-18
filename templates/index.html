@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Documentation</title>
+    <link rel="stylesheet" href="/static/styles/index.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Personal Documentation</h1>
+            <form action="/search" method="get" class="search-form">
+                <input type="text" name="q" id="search-bar" placeholder="Search..." required>
+                <button type="submit" class="search-button">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="topics-container">
+            {% for topic in topics %}
+                <div class="topic-card">
+                    <h2>{{ topic.name }}</h2>
+                    <ul class="subtopics-list">
+                        {% for subtopic in topic.subtopics %}
+                            <li>
+                                <a href="/files/{{ subtopic.file }}">{{ subtopic.name }}</a>
+                                <p>{{ subtopic.description }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Documentation Hub</p>
+    </footer>
+</body>
+</html>

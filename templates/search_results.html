@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/static/styles/search-results.css">
+</head>
+<body>
+    <header>
+        <h1>Search Results for "{{ query }}"</h1>
+        <a href="/" class="home-button">Home</a>
+    </header>
+
+    <main>
+        {% if results %}
+            <ul class="search-results">
+                {% for result in results %}
+                    <li class="search-result-item">
+                        <h2>{{ result.topic }}</h2>
+                        <a href="/files/{{ result.subtopic }}.txt" class="subtopic-link"><strong>Subtopic:</strong> {{ result.subtopic }}</a>
+                        <p><strong>Description:</strong> 
+                            <span class="description-text">
+                                {% set highlighted_description = result.description %}
+                                {% for word in query.split() %}
+                                    {% set highlighted_description = highlighted_description|replace(word, '<span class="highlight">' + word + '</span>') %}
+                                {% endfor %}
+                                {{ highlighted_description|safe }}
+                            </span>
+                        </p>
+                        <p><strong>Match Score:</strong> {{ result.match_score }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found for "{{ query }}"</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Documentation Hub</p>
+    </footer>
+</body>
+</html>

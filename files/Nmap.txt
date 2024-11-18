@@ -1,0 +1,42 @@
+Every computer has a total of 65535 available ports.
+
+When port scanning with Nmap, there are three basic scan types. These are:
+
+    TCP Connect Scans (-sT)
+    SYN "Half-open" Scans (-sS)
+    UDP Scans (-sU)
+
+Additionally there are several less common port scan types, some of which we will also cover (albeit in less detail). These are:
+
+    TCP Null Scans (-sN)
+    TCP FIN Scans (-sF)
+    TCP Xmas Scans (-sX)
+
+TCP Connect Scans (-sT)
+
+First the connecting terminal (our attacking machine, in this instance) sends a TCP request to the target server with the SYN flag set. The server then acknowledges this packet with a TCP response containing the SYN flag, as well as the ACK flag. Finally, our terminal completes the handshake by sending a TCP request with the ACK flag set.
+If Nmap sends a TCP request with the SYN flag set to a closed port, the target server will respond with a TCP packet with the RST (Reset) flag set. By this response, Nmap can establish that the port is closed.
+
+Many firewalls are configured to simply drop incoming packets. Nmap sends a TCP SYN request, and receives nothing back. This indicates that the port is being protected by a firewall and thus the port is considered to be filtered.
+
+That said, it is very easy to configure a firewall to respond with a RST TCP packet. For example, in IPtables for Linux.
+
+Command:
+iptables -I INPUT -p tcp --dport <port> -j REJECT --reject-with tcp-reset
+
+SYN Scans (-sS)
+
+SYN scans (-sS) are used to scan the TCP port-range of a target or targets; however, the two scan types work slightly differently. SYN scans are sometimes referred to as "Half-open" scans, or "Stealth" scans.
+
+This has a variety of advantages for us as hackers:
+
+    It can be used to bypass older Intrusion Detection systems as they are looking out for a full three way handshake. This is often no longer the case with modern IDS solutions; it is for this reason that SYN scans are still frequently referred to as "stealth" scans.
+    SYN scans are often not logged by applications listening on open ports, as standard practice is to log a connection once it's been fully established. Again, this plays into the idea of SYN scans being stealthy.
+    Without having to bother about completing (and disconnecting from) a three-way handshake for every port, SYN scans are significantly faster than a standard TCP Connect scan.
+
+There are, however, a couple of disadvantages to SYN scans, namely:
+
+    They require sudo permissions[1] in order to work correctly in Linux. This is because SYN scans require the ability to create raw packets (as opposed to the full TCP handshake), which is a privilege only the root user has by default.
+    Unstable services are sometimes brought down by SYN scans, which could prove problematic if a client has provided a production environment for the test.
+
+UDP Scans (-sU)

@@ -1,0 +1,1 @@
+It keeps real-time tabs on the file system, registry, and thread/process activity.

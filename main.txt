@@ -1,0 +1,65 @@
+1. Manual
+Robots_txt - To Display the restricted paths of the website.
+Favicon - To know the framework used in the website building.
+Sitemap_xml - full view of all the parts of the site.
+HTTP_Headers - to know the version of the server and backend languages like php etc.
+
+2. OSINT
+Google_Hacking - Apply Advanced filters to google search results.
+Wayback_Machine - Used to see the historical captures of websites.
+Github - Explore the public repos and source code of various things.
+S3_Buckets - Place provided by amazon to store files.
+
+3. Automated Discovery
+ffuf - Used to fuzz the web and access the hidden directories and files.
+dirb - Used for directory enumeration of websites.
+gobuster - Used for dire enumeration and discovery of hidden paths.
+
+4. Reverse Enginnering and Debugging
+Ghidra - NSA-developed open-source reverse engineering suite.
+x64dbg - Open-source debugger for binaries in x64 and x32 formats.
+OllyDbg - Debugger for reverse engineering at the assembly level.
+Radare2 - A sophisticated open-source platform for reverse engineering.
+Binary Ninja - A tool for disassembling and decompiling binaries.
+PEiD - Packer, cryptor, and compiler detection tool.
+
+5. Disassemblers and Decompilers
+CFF Explorer - A PE editor designed to analyze and edit Portable Executable (PE) files.
+Hopper Disassembler - A Debugger, disassembler, and decompiler.
+RetDec - Open-source decompiler for machine code.
+
+6. Static and Dynamic Analysis
+Process Hacker - Sophisticated memory editor and process watcher.
+PEview - A portable executable (PE) file viewer for analysis.
+Dependency Walker - A tool for displaying an executable’s DLL dependencies.
+DIE (Detect It Easy) - A packer, compiler, and cryptor detection tool.
+PEStudio - Static analysis or studying executable file properties without running the files.
+FLOSS - Extracts and de-obfuscates all strings from malware programs using advanced static analysis techniques. 
+
+7. Forensics and Incident Response
+Volatility - RAM dump analysis framework for memory forensics.
+Rekall - Framework for memory forensics in incident response.
+FTK Imager - Disc image acquisition and analysis tools for forensic use.
+
+8. Network Analysis
+Wireshark - Network protocol analyzer for traffic recording and examination.
+Nmap - A vulnerability detection and network mapping tool.
+Netcat - Read and write data across network connections with this helpful tool.
+
+9. File Analysis
+FileInsight - A program for looking through and editing binary files.
+Hex Fiend - Hex editor that is light and quick.
+HxD - Binary file viewing and editing with a hex editor.
+
+10. Scripting and Automation
+Python - Mainly automation-focused on Python modules and tools.
+PowerShell Empire - Framework for PowerShell post-exploitation.
+
+11. Sysinternals Suite
+Autoruns - Shows what executables are configured to run during system boot-up.
+Process Explorer - Provides information about running processes.
+Process Monitor - Monitors and logs real-time process/thread activity.
+
+12. Process Analysis
+Procmon - A helpful tool for tracking system activity, especially regarding malware research, troubleshooting, and forensic investigations.
+Process Explorer - Allows you to see the Process of the Parent-child relationship, DLLs loaded, and its path.
