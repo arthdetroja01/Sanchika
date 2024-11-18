@@ -37,7 +37,7 @@ PEStudio - Static analysis or studying executable file properties without runnin
 FLOSS - Extracts and de-obfuscates all strings from malware programs using advanced static analysis techniques. 
 
 7. Forensics and Incident Response
-Volatility - RAM dump analysis framework for memory forensics.
+Volatility_Framework - RAM dump analysis framework for memory forensics.
 Rekall - Framework for memory forensics in incident response.
 FTK Imager - Disc image acquisition and analysis tools for forensic use.
 
@@ -50,6 +50,7 @@ Netcat - Read and write data across network connections with this helpful tool.
 FileInsight - A program for looking through and editing binary files.
 Hex Fiend - Hex editor that is light and quick.
 HxD - Binary file viewing and editing with a hex editor.
+Oledump_py - Used in the analysis of OLE2 Files also called Structured Storage or Compound FIle Binary Format.
 
 10. Scripting and Automation
 Python - Mainly automation-focused on Python modules and tools.
@@ -69,4 +70,12 @@ Hydra - Passord attacks on various service like web, ssh etc
 
 14. Passive reconnaissance
 Whois - WHOIS server replies with various information related to the domain requested. 
-DNS_Lookup - QUery the DNS servers to find information related to servers
+DNS_Lookup - QUery the DNS servers to find information related to servers.
+
+15. Database Google_Hacking
+SQLMap - Automated penetration tool to exploit SQL Injection in Web application.
+
+16. vulnerability exploration
+Vuln_Database - List of vulnerability Databases
+OpenVas - Open source vulnerability scanner.
+Vuln_Scanner_list - List of all the vuln scanner

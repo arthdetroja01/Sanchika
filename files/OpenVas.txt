@@ -1,0 +1,74 @@
+OpenVAS (Open Vulnerability Assessment System) is an open-source vulnerability scanning and management platform designed to identify security issues in networks, servers, and applications. It is part of the Greenbone Vulnerability Management (GVM) solution and provides a wide range of tests to detect vulnerabilities and misconfigurations across IT infrastructure.
+Key Features
+
+    Comprehensive Vulnerability Scanning: Scans for known vulnerabilities using a database of regularly updated test scripts.
+    Configuration Auditing: Checks for misconfigurations that may expose systems to risks.
+    Wide Protocol Support: Scans services running on various protocols such as HTTP, FTP, SSH, and SMB.
+    Detailed Reporting: Generates reports in various formats like HTML, PDF, and XML for detailed analysis.
+    Regular Updates: Frequently updated with the latest vulnerability tests (Network Vulnerability Tests or NVTs).
+    User-Friendly Interface: Includes Greenbone Security Assistant (GSA), a web-based management interface.
+
+How OpenVAS Works
+
+    Setup: Install and configure OpenVAS on a Linux server.
+    Scan Configuration: Define targets, scan types (e.g., full or custom), and set credentials for authenticated scans if needed.
+    Execution: Run scans to identify vulnerabilities and misconfigurations.
+    Analysis: Review the generated reports to understand the vulnerabilities and apply appropriate remediation.
+
+Common Commands
+Starting OpenVAS Services
+
+sudo systemctl start gvmd
+sudo systemctl start openvas-scanner
+sudo systemctl start gsad
+
+    Starts the necessary services: Greenbone Vulnerability Manager (gvmd), the scanner, and the web interface (gsad).
+
+Setting Up OpenVAS
+
+    Update the Feed:
+
+sudo greenbone-feed-sync
+
+    Updates the vulnerability database and test scripts.
+
+Initial Setup:
+
+    sudo openvas-setup
+
+        Configures OpenVAS for first-time use, including downloading feeds.
+
+Running a Scan
+
+    Access Web Interface:
+        Open a browser and navigate to https://<server-ip>:9392.
+
+    Create a Target:
+        Define the target IP or range of IPs for the scan.
+
+    Launch a Scan:
+        Create and run a task to begin scanning the defined targets.
+
+Exporting Reports
+
+    Export reports in your desired format via the web interface or command line:
+
+    gvm-cli --gmp-username <username> --gmp-password <password> --xml "<XML Command for report>"
+
+Advanced Options
+
+    Custom Scan Configurations:
+        Modify scan types, such as full scans, light scans, or custom configurations targeting specific vulnerabilities.
+
+    Credentialed Scans:
+        Use SSH or SMB credentials for deeper scanning of systems.
+
+    Alerts and Notifications:
+        Set up alerts to notify admins about critical vulnerabilities automatically.
+
+Best Practices
+
+    Update Regularly: Always sync feeds before scans to use the latest vulnerability definitions.
+    Perform Credentialed Scans: Provides more accurate results for systems requiring authentication.
+    Analyze Reports Thoroughly: Prioritize vulnerabilities based on severity and apply patches or mitigations promptly.
+    Run Scans Periodically: Regular scanning ensures ongoing security monitoring of your infrastructure.

@@ -68,3 +68,12 @@ Key Points
 
     nslookup is simple but limited in detail.
     dig provides more information, such as TTL (Time To Live) by default.
+
+
+
+Use the below search engines to get more information
+
+DNS Dumpster - Extracts the sub domains of the searched domain along with the other information
+
+Shodan.io - Displays the information related to the metadata of the domain like geographic location, hosting company, etc and can be used in information gathering
+

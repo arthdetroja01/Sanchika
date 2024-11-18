@@ -1,0 +1,50 @@
+Volatility is a powerful memory forensics tool for analyzing volatile memory (RAM) dumps. It supports in-depth investigation of running processes, registry hives, network connections, and potential malicious artifacts in memory.
+Commands and Their Functions
+
+    windows.pstree.PsTree
+        Displays running processes in a tree format.
+        Useful for understanding parent-child relationships and spotting suspicious process hierarchies.
+
+vol.py -f MEMORY_DUMP windows.pstree.PsTree
+
+windows.pslist.PsList
+
+    Lists active processes in memory in a flat, chronological order.
+    Ideal for getting a snapshot of all running processes.
+
+vol.py -f MEMORY_DUMP windows.pslist.PsList
+
+windows.cmdline.CmdLine
+
+    Displays the command-line arguments of processes.
+    Useful for spotting malicious scripts or arguments.
+
+vol.py -f MEMORY_DUMP windows.cmdline.CmdLine
+
+windows.filescan.FileScan
+
+    Scans memory for file handles (open files).
+    Useful for identifying hidden or suspicious file activity.
+
+vol.py -f MEMORY_DUMP windows.filescan.FileScan
+
+windows.dlllist.DllList
+
+    Lists the DLLs loaded by processes.
+    Helps in identifying unusual or malicious DLLs injected into processes.
+
+vol.py -f MEMORY_DUMP windows.dlllist.DllList
+
+windows.malfind.Malfind
+
+    Detects memory regions containing malicious code.
+    Highlights injected code or shellcode in processes.
+
+vol.py -f MEMORY_DUMP windows.malfind.Malfind
+
+windows.psscan.PsScan
+
+    Scans memory for process objects, including hidden or terminated processes.
+    Useful for detecting stealthy or terminated malware processes.
+
+vol.py -f MEMORY_DUMP windows.psscan.PsScan

