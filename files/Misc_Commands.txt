@@ -1,0 +1,4 @@
+This file lists linux commands for daily help.
+
+grep -l "keyword" *.nse : searches for specific string in a folder full of text files or in this case .nse extension files.
+

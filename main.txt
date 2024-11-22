@@ -75,7 +75,13 @@ DNS_Lookup - QUery the DNS servers to find information related to servers.
 15. Database Google_Hacking
 SQLMap - Automated penetration tool to exploit SQL Injection in Web application.
 
-16. vulnerability exploration
+16. Vulnerability exploration
 Vuln_Database - List of vulnerability Databases
 OpenVas - Open source vulnerability scanner.
 Vuln_Scanner_list - List of all the vuln scanner
+
+17. Linux
+Misc_Commands - Commands for daily help
+
+18. Malware Analysis
+Misc_Malware_Analysis_Notes - Miscallenous Malware analysis Notes
